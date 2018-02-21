@@ -63,8 +63,12 @@ client.request({url: 'https://public.api.openprocurement.org/api/2.3/contracts?o
 	var suppliers =  data.getJSON().data.suppliers[0].name;	
 	var region =  data.getJSON().data.suppliers[0].address.region;	
 	var contactPoint =  data.getJSON().data.suppliers[0].contactPoint.email;	
-	var description = data.getJSON().data.items[0].description.toLowerCase();	
-	var cpv = data.getJSON().data.items[0].classification.id;	
+	var description= "";
+		for (var it = 0; it < data.getJSON().data.items.length; it++) {
+			description = data.getJSON().data.items[it].description.toLowerCase()+"; "+description
+		}
+			
+			var cpv = data.getJSON().data.items[0].classification.id;	
 	
 		
 	
@@ -196,7 +200,7 @@ statement.finalize();
 	})
 	.then(function () {	
 	
-	if (p<2){setTimeout(function() {piv ();},10000);}		
+	if (p<10){setTimeout(function() {piv ();},10000);}		
 		else {
 			console.log("stop")
 			
